@@ -19,7 +19,6 @@ import streamlit as st
 # ── PAGE CONFIG ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title            = "CardioShield – Heart Disease Risk Assessment",
-    page_icon             = "🫀",
     layout                = "wide",
     initial_sidebar_state = "collapsed",
 )
