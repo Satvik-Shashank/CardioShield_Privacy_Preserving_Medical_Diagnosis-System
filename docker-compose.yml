@@ -1,0 +1,72 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# CardioShield – Docker Compose
+# ─────────────────────────────────────────────────────────────────────────────
+# Runs two services from the same image:
+#   backend  → Flask API (port 5000) — encrypted database
+#   frontend → Streamlit UI (port 8501) — patient form + analysis
+#
+# Usage:
+#   docker-compose up --build        (first time / after code changes)
+#   docker-compose up                (subsequent runs)
+#   docker-compose down              (stop)
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+  # ── Flask Backend ────────────────────────────────────────────────────────
+  backend:
+    build: .
+    container_name: cardioshield-backend
+    command: >
+      gunicorn
+        --bind 0.0.0.0:5000
+        --workers 2
+        --timeout 120
+        "backend.app:create_app()"
+    ports:
+      - "5555:5000"
+    environment:
+      - CARDIOSHIELD_SECRET_KEY=${CARDIOSHIELD_SECRET_KEY:-cardioshield-demo-key-change-in-production}
+      - CARDIOSHIELD_API_KEY=${CARDIOSHIELD_API_KEY:-cardioshield-demo-api-key}
+      - CARDIOSHIELD_HOST=0.0.0.0
+      - CARDIOSHIELD_PORT=5000
+      - CARDIOSHIELD_CORS_ORIGIN=*
+    volumes:
+      - db-data:/app/backend
+      - artefacts:/app/artefacts
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ── Streamlit Frontend ───────────────────────────────────────────────────
+  frontend:
+    build: .
+    container_name: cardioshield-frontend
+    command: >
+      streamlit run app.py
+        --server.port=8501
+        --server.address=0.0.0.0
+        --server.headless=true
+        --browser.gatherUsageStats=false
+    ports:
+      - "8501:8501"
+    environment:
+      - CARDIOSHIELD_BACKEND_URL=http://backend:5000
+      - CARDIOSHIELD_API_KEY=${CARDIOSHIELD_API_KEY:-cardioshield-demo-api-key}
+    volumes:
+      - artefacts:/app/artefacts
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  db-data:
+    driver: local
+  artefacts:
+    driver: local
