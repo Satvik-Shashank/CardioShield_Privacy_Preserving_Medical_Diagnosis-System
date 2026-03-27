@@ -13,3 +13,4 @@ pytest>=8.0.0
 requests>=2.31.0
 gunicorn>=22.0.0
 fpdf2
+reportlab>=4.1.0
