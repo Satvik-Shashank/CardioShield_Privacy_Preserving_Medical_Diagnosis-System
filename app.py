@@ -36,43 +36,58 @@ for key, default in [
     if key not in st.session_state:
         st.session_state[key] = default
 
+# ── THEME TOKENS (Dark Mode Only) ─────────────────────────────────────────────
+T = {
+    "bg_app":     "#0C111D",
+    "bg_card":    "#131C2E",
+    "bg_metric":  "#131C2E",
+    "bg_alt":     "rgba(30,45,64,0.3)",
+    "text_main":  "#E2E8F0",
+    "text_dim":   "#94A3B8",
+    "text_brand": "#F1F5F9",
+    "border":     "#1E2D40",
+    "primary":    "#3B82F6",
+    "accent":     "#60A5FA",
+    "shadow":     "rgba(0,0,0,0.4)",
+}
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # GLOBAL CSS — dark, professional, medical-grade
 # ═══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
+st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
-html, body, [class*="css"]  { font-family: 'Inter', sans-serif; }
-h1, h2, h3, h4              { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; }
+html, body, [class*="css"]  {{ font-family: 'Inter', sans-serif; }}
+h1, h2, h3, h4              {{ font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; }}
 
 /* ── Shell ─────────────────────────────────────────────────────────────────── */
-.stApp                      { background: #0C111D; color: #E2E8F0; }
-.block-container            { padding-top: 1.2rem !important; }
+.stApp                      {{ background: {T['bg_app']}; color: {T['text_main']}; }}
+.block-container            {{ padding-top: 1.2rem !important; }}
 
 /* ── Hide Streamlit toolbar & decoration ───────────────────────────────────── */
-header[data-testid="stHeader"]    { display: none !important; }
-div[data-testid="stDecoration"]   { display: none !important; }
-div[data-testid="stToolbar"]      { display: none !important; }
-#MainMenu                         { display: none !important; }
-footer                            { display: none !important; }
+header[data-testid="stHeader"]    {{ display: none !important; }}
+div[data-testid="stDecoration"]   {{ display: none !important; }}
+div[data-testid="stToolbar"]      {{ display: none !important; }}
+#MainMenu                         {{ display: none !important; }}
+footer                            {{ display: none !important; }}
 
 /* ── Hide Sidebar ──────────────────────────────────────────────────────────── */
-section[data-testid="stSidebar"]  { display: none !important; }
-button[data-testid="stSidebarCollapsedControl"] { display: none !important; }
+section[data-testid="stSidebar"]  {{ display: none !important; }}
+button[data-testid="stSidebarCollapsedControl"] {{ display: none !important; }}
 
 /* ── Top Tabs ──────────────────────────────────────────────────────────────── */
-.stTabs { margin-top: -52px !important; }
-.stTabs [data-baseweb="tab-list"] {
+.stTabs {{ margin-top: -52px !important; }}
+.stTabs [data-baseweb="tab-list"] {{
     gap: 4px;
     background: transparent;
     border: none;
     padding: 0 8px;
     justify-content: flex-end;
-}
-.stTabs [data-baseweb="tab"] {
+}}
+.stTabs [data-baseweb="tab"] {{
     background: transparent !important;
-    color: #94A3B8 !important;
+    color: {T['text_dim']} !important;
     border-radius: 8px !important;
     padding: 8px 18px !important;
     font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -80,70 +95,68 @@ button[data-testid="stSidebarCollapsedControl"] { display: none !important; }
     font-size: 0.85rem !important;
     border: none !important;
     transition: all 0.2s ease !important;
-}
-.stTabs [data-baseweb="tab"]:hover {
-    background: rgba(255,255,255,0.05) !important;
-    color: #F1F5F9 !important;
-}
-.stTabs [aria-selected="true"] {
-    background: rgba(59,130,246,0.15) !important;
-    color: #93C5FD !important;
+}}
+.stTabs [data-baseweb="tab"]:hover {{
+    background: rgba(120,120,120,0.1) !important;
+    color: {T['text_main']} !important;
+}}
+.stTabs [aria-selected="true"] {{
+    background: rgba(59,130,246,0.1) !important;
+    color: {T['primary']} !important;
     border: none !important;
-}
-.stTabs [data-baseweb="tab-highlight"] {
-    background: #3B82F6 !important;
+}}
+.stTabs [data-baseweb="tab-highlight"] {{
+    background: {T['primary']} !important;
     height: 3px !important;
     border-radius: 2px !important;
-}
-.stTabs [data-baseweb="tab-border"] {
-    background: #1E2D40 !important;
+}}
+.stTabs [data-baseweb="tab-border"] {{
+    background: {T['border']} !important;
     height: 1px !important;
-}
+}}
 
 /* ── Navbar row ────────────────────────────────────────────────────────────── */
-.cs-navbar {
+.cs-navbar {{
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 8px 14px 8px;
     margin-bottom: 0px;
-}
-.cs-navbar-brand {
+}}
+.cs-navbar-brand {{
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 2rem; font-weight: 800; color: #F1F5F9;
+    font-size: 2rem; font-weight: 800; color: {T['text_brand']};
     letter-spacing: -0.5px; white-space: nowrap;
-}
-.cs-navbar-sub {
-    font-size: 0.82rem; color: #64748B; margin-top: 3px;
+}}
+.cs-navbar-sub {{
+    font-size: 0.82rem; color: {T['text_dim']}; margin-top: 3px;
     letter-spacing: 0.3px;
-}
+}}
 
 /* ── Footer ────────────────────────────────────────────────────────────────── */
-.cs-footer {
+.cs-footer {{
     text-align: center; padding: 28px 0 18px 0;
-    border-top: 1px solid #1E2D40; margin-top: 40px;
-}
-.cs-footer-label {
-    font-size: 0.68rem; color: #475569; font-weight: 700;
+    border-top: 1px solid {T['border']}; margin-top: 40px;
+}}
+.cs-footer-label {{
+    font-size: 0.68rem; color: {T['text_dim']}; font-weight: 700;
     letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;
-}
-.cs-footer a {
-    color: #93C5FD; text-decoration: none; font-weight: 600;
+}}
+.cs-footer a {{
+    color: {T['primary']}; text-decoration: none; font-weight: 600;
     font-size: 0.88rem; margin: 0 14px; transition: color 0.2s;
-}
-.cs-footer a:hover { color: #60A5FA; text-decoration: underline; }
-
-
+}}
+.cs-footer a:hover {{ color: {T['accent']}; text-decoration: underline; }}
 
 /* ── Metrics ─────────────────────────────────────────────────────────────────── */
-div[data-testid="metric-container"] {
-    background: #131C2E; border: 1px solid #1E2D40;
+div[data-testid="metric-container"] {{
+    background: {T['bg_metric']}; border: 1px solid {T['border']};
     border-radius: 10px; padding: 16px 20px;
-}
-div[data-testid="metric-container"] label        { color: #64748B !important; font-size: 0.8rem !important; }
-div[data-testid="metric-container"] [data-testid="stMetricValue"] { color: #60A5FA !important; font-weight: 700 !important; }
+}}
+div[data-testid="metric-container"] label        {{ color: {T['text_dim']} !important; font-size: 0.8rem !important; }}
+div[data-testid="metric-container"] [data-testid="stMetricValue"] {{ color: {T['accent']} !important; font-weight: 700 !important; }}
 
 /* ── Buttons ─────────────────────────────────────────────────────────────────── */
-div[data-testid="stButton"] > button {
-    background: linear-gradient(135deg, #1D4ED8, #2563EB);
+div[data-testid="stButton"] > button {{
+    background: linear-gradient(135deg, {T['primary']}, {T['accent']});
     color: #fff !important;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700; border: none; border-radius: 8px;
@@ -151,132 +164,135 @@ div[data-testid="stButton"] > button {
     box-shadow: 0 2px 12px rgba(37, 99, 235, 0.35);
     transition: all 0.2s ease;
     width: 100%;
-}
-div[data-testid="stButton"] > button:hover {
-    background: linear-gradient(135deg, #1E40AF, #1D4ED8);
+}}
+div[data-testid="stButton"] > button:hover {{
+    filter: brightness(1.1);
     box-shadow: 0 4px 18px rgba(37, 99, 235, 0.5);
     transform: translateY(-1px);
-}
+}}
 
 /* ── Form inputs ─────────────────────────────────────────────────────────────── */
 div[data-baseweb="input"] input,
-div[data-baseweb="select"] > div {
-    background: #131C2E !important;
-    border: 1px solid #1E2D40 !important;
+div[data-baseweb="select"] > div {{
+    background: {T['bg_card']} !important;
+    border: 1px solid {T['border']} !important;
     border-radius: 7px !important;
-    color: #E2E8F0 !important;
+    color: {T['text_main']} !important;
     font-size: 0.92rem !important;
-}
+}}
 div[data-baseweb="input"] input:focus,
-div[data-baseweb="select"] > div:focus-within {
-    border-color: #3B82F6 !important;
+div[data-baseweb="select"] > div:focus-within {{
+    border-color: {T['primary']} !important;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
-}
-div[data-baseweb="popover"] { background: #131C2E !important; border: 1px solid #1E2D40 !important; }
-div[data-baseweb="menu"] li { color: #CBD5E1 !important; }
-div[data-baseweb="menu"] li:hover { background: #1E2D40 !important; }
+}}
+div[data-baseweb="popover"] {{ background: {T['bg_card']} !important; border: 1px solid {T['border']} !important; }}
+div[data-baseweb="menu"] li {{ color: {T['text_main']} !important; }}
+div[data-baseweb="menu"] li:hover {{ background: {T['border']} !important; }}
 
 /* Widget labels */
-label[data-testid="stWidgetLabel"] > div > p {
-    color: #94A3B8 !important; font-weight: 600 !important;
+label[data-testid="stWidgetLabel"] > div > p {{
+    color: {T['text_dim']} !important; font-weight: 600 !important;
     font-size: 0.78rem !important; letter-spacing: 0.5px !important;
     text-transform: uppercase !important;
-}
+}}
 
 /* ── Number input tweaks ─────────────────────────────────────────────────────── */
-div[data-baseweb="input"] button { background: transparent !important; color: #64748B !important; }
+div[data-baseweb="input"] button {{ background: transparent !important; color: {T['text_dim']} !important; }}
 
 /* ── Tables ──────────────────────────────────────────────────────────────────── */
-.stMarkdown table            { width: 100%; border-collapse: collapse; }
-.stMarkdown table th         { background: #1E2D40; color: #93C5FD !important; padding: 10px 14px; font-size: 0.8rem; letter-spacing: 0.5px; text-transform: uppercase; }
-.stMarkdown table td         { padding: 9px 14px; border-bottom: 1px solid #1E2D40; font-size: 0.88rem; color: #CBD5E1; }
-.stMarkdown table tr:nth-child(even) td { background: rgba(30,45,64,0.3); }
+.stMarkdown table            {{ width: 100%; border-collapse: collapse; }}
+.stMarkdown table th         {{ background: {T['border']}; color: {T['primary']} !important; padding: 10px 14px; font-size: 0.8rem; letter-spacing: 0.5px; text-transform: uppercase; }}
+.stMarkdown table td         {{ padding: 9px 14px; border-bottom: 1px solid {T['border']}; font-size: 0.88rem; color: {T['text_main']}; }}
+.stMarkdown table tr:nth-child(even) td {{ background: {T['bg_alt']}; }}
 
 /* ── Expander ────────────────────────────────────────────────────────────────── */
-details { background: #131C2E !important; border: 1px solid #1E2D40 !important; border-radius: 10px !important; }
-details summary { color: #93C5FD !important; font-weight: 600 !important; padding: 14px 18px !important; }
+details {{ background: {T['bg_card']} !important; border: 1px solid {T['border']} !important; border-radius: 10px !important; }}
+details summary {{ color: {T['primary']} !important; font-weight: 600 !important; padding: 14px 18px !important; }}
 
 /* ── Cards ───────────────────────────────────────────────────────────────────── */
-.cs-card {
-    background: #131C2E; border: 1px solid #1E2D40;
+.cs-card {{
+    background: {T['bg_card']}; border: 1px solid {T['border']};
     border-radius: 12px; padding: 24px 26px; margin-bottom: 14px;
-}
-.cs-card h3 { color: #93C5FD; font-size: 1rem; margin-bottom: 8px; }
-.cs-card p  { color: #94A3B8; font-size: 0.88rem; line-height: 1.65; margin: 0; }
+    box-shadow: 0 4px 20px {T['shadow']};
+}}
+.cs-card h3 {{ color: {T['primary']}; font-size: 1rem; margin-bottom: 8px; }}
+.cs-card p  {{ color: {T['text_dim']}; font-size: 0.88rem; line-height: 1.65; margin: 0; }}
 
 /* Form section header */
-.form-section-head {
-    background: #1E2D40; border-left: 3px solid #3B82F6;
+.form-section-head {{
+    background: {T['border']}; border-left: 3px solid {T['primary']};
     border-radius: 6px; padding: 10px 16px; margin: 22px 0 14px 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700; font-size: 0.82rem; letter-spacing: 0.8px;
-    text-transform: uppercase; color: #93C5FD;
-}
+    text-transform: uppercase; color: {T['primary']};
+}}
 
 /* ── Risk banner ─────────────────────────────────────────────────────────────── */
-.risk-banner-high { background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.35); }
-.risk-banner-mod  { background: rgba(217,119,6,0.08); border: 1px solid rgba(217,119,6,0.35); }
-.risk-banner-low  { background: rgba(5,150,105,0.08); border: 1px solid rgba(5,150,105,0.35); }
+.risk-banner-high {{ background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.35); }}
+.risk-banner-mod  {{ background: rgba(217,119,6,0.08); border: 1px solid rgba(217,119,6,0.35); }}
+.risk-banner-low  {{ background: rgba(5,150,105,0.08); border: 1px solid rgba(5,150,105,0.35); }}
 
 /* ── SHAP bullets ────────────────────────────────────────────────────────────── */
-.shap-up {
+.shap-up {{
     background: rgba(220,38,38,0.06); border: 1px solid rgba(220,38,38,0.2);
     border-left: 3px solid #DC2626; border-radius: 0 8px 8px 0;
     padding: 14px 18px; margin-bottom: 10px;
-}
-.shap-down {
+}}
+.shap-down {{
     background: rgba(5,150,105,0.06); border: 1px solid rgba(5,150,105,0.2);
     border-left: 3px solid #059669; border-radius: 0 8px 8px 0;
     padding: 14px 18px; margin-bottom: 10px;
-}
-.shap-feat-name  { font-weight: 700; color: #F1F5F9; font-size: 0.93rem; }
-.shap-feat-meta  { color: #64748B; font-size: 0.8rem; margin-top: 2px; }
-.shap-feat-adv   { color: #CBD5E1; font-size: 0.87rem; margin-top: 9px; line-height: 1.55; }
+}}
+.shap-feat-name  {{ font-weight: 700; color: {T['text_main']}; font-size: 0.93rem; }}
+.shap-feat-meta  {{ color: {T['text_dim']}; font-size: 0.8rem; margin-top: 2px; }}
+.shap-feat-adv   {{ color: {T['text_main']}; font-size: 0.87rem; margin-top: 9px; line-height: 1.55; opacity: 0.9; }}
 
 /* ── Hex box ─────────────────────────────────────────────────────────────────── */
-.hex-box {
+.hex-box {{
     font-family: 'Courier New', monospace; font-size: 10px;
-    background: #080C14; border: 1px solid #1E2D40; border-radius: 8px;
-    padding: 14px; color: #22D3EE; word-break: break-all;
+    background: rgba(0,0,0,0.1); border: 1px solid {T['border']}; border-radius: 8px;
+    padding: 14px; color: {T['primary']}; word-break: break-all;
     line-height: 1.8; max-height: 120px; overflow-y: auto;
-}
+}}
 
 /* ── Step cards ──────────────────────────────────────────────────────────────── */
-.step-card {
-    background: #131C2E; border: 1px solid #1E2D40;
-    border-left: 3px solid #3B82F6; border-radius: 0 10px 10px 0;
+.step-card {{
+    background: {T['bg_card']}; border: 1px solid {T['border']};
+    border-left: 3px solid {T['primary']}; border-radius: 0 10px 10px 0;
     padding: 20px 22px; margin-bottom: 4px;
     min-height: 160px;
-}
-.step-num   { font-size: 1.5rem; font-weight: 800; color: #3B82F6; margin-bottom: 5px; }
-.step-title { font-size: 0.93rem; font-weight: 700; color: #F1F5F9; margin-bottom: 6px; }
-.step-desc  { font-size: 0.82rem; color: #64748B; line-height: 1.55; }
+    box-shadow: 0 2px 10px {T['shadow']};
+}}
+.step-num   {{ font-size: 1.5rem; font-weight: 800; color: {T['primary']}; margin-bottom: 5px; }}
+.step-title {{ font-size: 0.93rem; font-weight: 700; color: {T['text_main']}; margin-bottom: 6px; }}
+.step-desc  {{ font-size: 0.82rem; color: {T['text_dim']}; line-height: 1.55; }}
 
 /* ── Stat box ────────────────────────────────────────────────────────────────── */
-.stat-box {
-    background: #131C2E; border: 1px solid #1E2D40; border-radius: 10px;
+.stat-box {{
+    background: {T['bg_card']}; border: 1px solid {T['border']}; border-radius: 10px;
     padding: 22px 18px; text-align: center;
-}
-.stat-val { font-size: 2rem; font-weight: 800; color: #60A5FA; }
-.stat-lbl { font-size: 0.78rem; color: #64748B; margin-top: 4px; letter-spacing: 0.3px; }
+    box-shadow: 0 2px 10px {T['shadow']};
+}}
+.stat-val {{ font-size: 2rem; font-weight: 800; color: {T['accent']}; }}
+.stat-lbl {{ font-size: 0.78rem; color: {T['text_dim']}; margin-top: 4px; letter-spacing: 0.3px; }}
 
 /* ── Badge pills ─────────────────────────────────────────────────────────────── */
-.pill-high { display:inline-block; padding:4px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; background:rgba(220,38,38,0.15); color:#F87171; border:1px solid rgba(220,38,38,0.4); }
-.pill-mod  { display:inline-block; padding:4px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; background:rgba(217,119,6,0.15); color:#FCD34D; border:1px solid rgba(217,119,6,0.4); }
-.pill-low  { display:inline-block; padding:4px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; background:rgba(5,150,105,0.15); color:#34D399; border:1px solid rgba(5,150,105,0.4); }
+.pill-high {{ display:inline-block; padding:4px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; background:rgba(220,38,38,0.15); color:#F87171; border:1px solid rgba(220,38,38,0.4); }}
+.pill-mod  {{ display:inline-block; padding:4px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; background:rgba(217,119,6,0.15); color:#FCD34D; border:1px solid rgba(217,119,6,0.4); }}
+.pill-low  {{ display:inline-block; padding:4px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; background:rgba(5,150,105,0.15); color:#34D399; border:1px solid rgba(5,150,105,0.4); }}
 
-/* ── Divider ─────────────────────────────────────────────────────────────────── */
-.cs-divider { border: none; border-top: 1px solid #1E2D40; margin: 28px 0; }
+.cs-divider {{ border: none; border-top: 1px solid {T['border']}; margin: 28px 0; }}
 
 /* Streamlit info/success/warning overrides */
-div[data-testid="stAlert"] { border-radius: 8px !important; }
+div[data-testid="stAlert"] {{ border-radius: 8px !important; background: {T['bg_card']} !important; color: {T['text_main']} !important; border: 1px solid {T['border']} !important; }}
 </style>
 """, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # NAVBAR + HORIZONTAL TABS
 # ═══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
+# ── NAVBAR ───────────────────────────────────────────────────────────────────
+st.markdown(f"""
 <div class='cs-navbar'>
     <div>
         <div class='cs-navbar-brand'>CardioShield</div>
@@ -285,6 +301,7 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
 
 tab_home, tab_form, tab_analysis, tab_metrics = st.tabs([
     "Home", "Patient Form", "Detailed Analysis", "Metrics"
@@ -396,16 +413,16 @@ with tab_home:
 
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown("""<div class='cs-card' style='border-left:3px solid #DC2626;'>
+        st.markdown(f"""<div class='cs-card' style='border-left:3px solid #DC2626;'>
         <h3>The Privacy Problem</h3>
         <p>Traditional AI diagnostics force clinicians to upload raw patient records —
         cholesterol, ECG results, blood pressure — to external cloud servers, creating
         serious HIPAA exposure and data breach risk with every request.</p>
         </div>""", unsafe_allow_html=True)
     with c2:
-        st.markdown("""<div class='cs-card' style='border-left:3px solid #059669;'>
+        st.markdown(f"""<div class='cs-card' style='border-left:3px solid #059669;'>
         <h3>Our Secure Solution</h3>
-        <p>CardioShield encrypts all patient features <strong style='color:#93C5FD;'>on the client</strong>
+        <p>CardioShield encrypts all patient features <strong style='color:{T['primary']};'>on the client</strong>
         before they leave the device. The inference engine computes predictions entirely
         on ciphertexts — it never sees a single raw clinical value.
         Zero patient data is ever exposed to the server in plaintext form.</p>
@@ -413,7 +430,7 @@ with tab_home:
 
     st.markdown("<hr class='cs-divider'>", unsafe_allow_html=True)
     st.markdown("### Architecture and Workflow")
-    st.markdown("<p style='color:#64748B; margin-bottom:20px; font-size:0.9rem;'>How CardioShield delivers AI diagnostics without compromising patient privacy.</p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color:{T['text_dim']}; margin-bottom:20px; font-size:0.9rem;'>How CardioShield delivers AI diagnostics without compromising patient privacy.</p>", unsafe_allow_html=True)
 
     steps = [
         ("1", "Data Input",         "Clinician enters 13 clinical features locally. No data leaves the device in plaintext."),
@@ -444,9 +461,9 @@ with tab_home:
 # PAGE 2 – PATIENT FORM  (vertical, medical-style)
 # ═══════════════════════════════════════════════════════════════════════════════
 with tab_form:
-    st.markdown("""
-    <h2 style='color:#F1F5F9; margin-bottom:4px;'>Patient Assessment Form</h2>
-    <p style='color:#64748B; margin-bottom:24px; font-size:0.9rem;'>
+    st.markdown(f"""
+    <h2 style='color:{T['text_brand']}; margin-bottom:4px;'>Patient Assessment Form</h2>
+    <p style='color:{T['text_dim']}; margin-bottom:24px; font-size:0.9rem;'>
         All data is encrypted on this device before analysis. Values are never transmitted in plaintext.
     </p>
     """, unsafe_allow_html=True)
@@ -497,14 +514,14 @@ with tab_form:
     st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
     run = st.button("Run Encrypted Analysis")
 
-    st.markdown("""
-    <div style='background: rgba(5, 150, 105, 0.1); border: 1px solid rgba(5, 150, 105, 0.4);
+    st.markdown(f"""
+    <div style='background: rgba(5, 150, 105, 0.08); border: 1px solid rgba(5, 150, 105, 0.3);
          border-left: 4px solid #059669; border-radius: 8px; padding: 16px 20px; margin-top: 16px;'>
-        <div style='font-weight: 700; color: #34D399; font-size: 0.92rem; margin-bottom: 6px;'>
+        <div style='font-weight: 700; color: #059669; font-size: 0.92rem; margin-bottom: 6px;'>
             Encryption Active — Your Data Is Protected</div>
-        <div style='color: #94A3B8; font-size: 0.82rem; line-height: 1.65;'>
+        <div style='color: {T['text_dim']}; font-size: 0.82rem; line-height: 1.65;'>
             All 13 clinical features are encrypted locally on your device using
-            <strong style='color:#93C5FD;'>TenSEAL CKKS homomorphic encryption</strong>
+            <strong style='color:{T['primary']};'>TenSEAL CKKS homomorphic encryption</strong>
             (128-bit RLWE security) before being sent to the inference model.
             The server never sees raw patient values — it computes predictions
             entirely on ciphertexts. No sensitive data leaves this device in plaintext.
@@ -512,8 +529,8 @@ with tab_form:
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <p style='color:#475569; font-size:0.78rem; text-align:center; margin-top:10px; line-height:1.6;'>
+    st.markdown(f"""
+    <p style='color:{T['text_dim']}; font-size:0.78rem; text-align:center; margin-top:10px; line-height:1.6;'>
     Research and decision-support tool only.<br>
     Always consult a qualified cardiologist before clinical decisions.
     </p>""", unsafe_allow_html=True)
@@ -680,13 +697,13 @@ with tab_analysis:
         <div style='display:flex; align-items:center; gap:22px; flex-wrap:wrap;'>
             <div style='font-size:3rem;'>{risk_icon}</div>
             <div>
-                <div style='font-size:0.72rem; color:#64748B; font-weight:700;
+                <div style='font-size:0.72rem; color:{T['text_dim']}; font-weight:700;
                 letter-spacing:1.2px; text-transform:uppercase;'>Heart Disease Risk Probability</div>
                 <div style='font-size:3rem; font-weight:800; color:{risk_col};
                 line-height:1; margin:6px 0;'>{risk_pct:.1f}%</div>
                 <span class='{pill_cls}'>{risk_class}</span>
             </div>
-            <div style='margin-left:auto; font-size:0.82rem; color:#64748B; text-align:right; line-height:1.9;'>
+            <div style='margin-left:auto; font-size:0.82rem; color:{T['text_dim']}; text-align:right; line-height:1.9;'>
                 <div>Patient: {d["patient"]}</div>
                 <div>Clinician: {d["doctor"]}</div>
                 <div>Date: {d["date"]}</div>
@@ -735,7 +752,7 @@ with tab_analysis:
                 <div>
                     <span class='shap-feat-name'>{label}</span>
                     <div class='shap-feat-meta'>
-                        Recorded value: <strong style='color:#CBD5E1;'>{feat_val:.2f}</strong>
+                        Recorded value: <strong style='color:{T['text_main']};'>{feat_val:.2f}</strong>
                         &nbsp;·&nbsp; SHAP contribution: <strong style='color:{arr_col};'>{sv:+.4f}</strong>
                     </div>
                 </div>
@@ -743,8 +760,8 @@ with tab_analysis:
                 white-space:nowrap; margin-top:2px;'>{arrow}</span>
             </div>
             <div class='shap-feat-adv'>
-                <strong style='color:#93C5FD;'>Clinical note:</strong> {context}<br>
-                <strong style='color:#34D399;'>Recommendation:</strong> {advice}
+                <strong style='color:{T['primary']};'>Clinical note:</strong> {context}<br>
+                <strong style='color:#059669;'>Recommendation:</strong> {advice}
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -957,9 +974,9 @@ with tab_analysis:
 # PAGE 4 – METRICS
 # ═══════════════════════════════════════════════════════════════════════════════
 with tab_metrics:
-    st.markdown("""
-    <h2 style='color:#F1F5F9; margin-bottom:4px;'>Performance Metrics and Privacy Proof</h2>
-    <p style='color:#64748B; margin-bottom:24px; font-size:0.9rem;'>
+    st.markdown(f"""
+    <h2 style='color:{T['text_brand']}; margin-bottom:4px;'>Performance Metrics and Privacy Proof</h2>
+    <p style='color:{T['text_dim']}; margin-bottom:24px; font-size:0.9rem;'>
         Benchmarks comparing plaintext and homomorphically-encrypted inference pipelines.
     </p>
     """, unsafe_allow_html=True)
@@ -988,13 +1005,13 @@ with tab_metrics:
     st.markdown("### Privacy Guarantee")
     pc1, pc2 = st.columns(2)
     with pc1:
-        st.markdown("""<div class='cs-card' style='border-left:3px solid #DC2626;'>
+        st.markdown(f"""<div class='cs-card' style='border-left:3px solid #DC2626;'>
         <h3>What the server receives</h3>
         <p>A CKKS ciphertext — computationally indistinguishable from random noise under
         the RLWE assumption (128-bit security). No feature values, no patient identity, no diagnosis.</p>
         </div>""", unsafe_allow_html=True)
     with pc2:
-        st.markdown("""<div class='cs-card' style='border-left:3px solid #059669;'>
+        st.markdown(f"""<div class='cs-card' style='border-left:3px solid #059669;'>
         <h3>What the server returns</h3>
         <p>An encrypted probability scalar. Only the client holding the secret key can decrypt it.
         The server learns absolutely nothing about the final result.</p>

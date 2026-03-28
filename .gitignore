@@ -8,7 +8,7 @@ app_old.py
 *.pyc
 .ipynb_checkpoints/
 .streamlit/
-artefacts/
+# artefacts/
 .env
 backend/.salt
 backend/cardioshield.db
