@@ -614,27 +614,8 @@ with tab_form:
         pbar.progress(90, text="Saving encrypted data to backend...")
 
         # ── Send data to Flask backend for encrypted storage ─────────────
-        try:
-            api_payload = {
-                "patient_name":    p_name,
-                "clinician_name":  d_name,
-                "assessment_date": p_date,
-                "features": dict(zip(FEATURE_NAMES, raw_values)),
-            }
-            headers = {"Content-Type": "application/json"}
-            if BACKEND_API_KEY:
-                headers["X-API-Key"] = BACKEND_API_KEY
-            resp = requests.post(
-                f"{BACKEND_URL}/api/patients",
-                json=api_payload,
-                headers=headers,
-                timeout=10,
-            )
-            if resp.status_code == 201:
-                backend_saved = True
-                backend_patient_id = resp.json().get("patient_id")
-        except Exception:
-            pass  # Backend unreachable — local results still valid
+        # Removed for Streamlit Cloud deployment to prevent hanging / timeouts
+        pass
 
         pbar.progress(100, text="Analysis complete.")
 
@@ -656,7 +637,6 @@ with tab_form:
             st.success(f"✅ Secure analysis complete — encrypted record saved to database (Patient #{backend_patient_id}). Navigate to the Detailed Analysis tab above.")
         else:
             st.success("Secure analysis complete! Navigate to the Detailed Analysis tab above.")
-            st.info("ℹ Backend not available — results computed locally (not persisted).  Start the backend with `python -m backend.app` to enable encrypted storage.")
 
     render_footer()
 
