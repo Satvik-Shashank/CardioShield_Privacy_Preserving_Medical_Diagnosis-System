@@ -309,7 +309,17 @@ tab_home, tab_form, tab_analysis, tab_metrics = st.tabs([
 
 # ── Footer helper ─────────────────────────────────────────────────────────────
 def render_footer():
-    pass
+    st.markdown("""
+    <div class='cs-footer'>
+        <div class='cs-footer-label'>Built by</div>
+        <div>
+            <a href="https://www.linkedin.com/in/satvik-shashank/" target="_blank">👤 Satvik Shashank</a>
+            <a href="https://www.linkedin.com/in/monarch-dev-47b676327/" target="_blank">👤 Monarch Dev</a>
+            <a href="https://www.linkedin.com/in/suyansh-khanna-002b61307/" target="_blank">👤 Suyansh Khanna</a>
+        </div>
+        <div style='font-size: 0.68rem; color: #334155; margin-top: 12px;'>© 2025 CardioShield Team</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
