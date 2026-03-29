@@ -1,106 +1,183 @@
 # CardioShield_Privacy_Preserving_Medical_Diagnosis-System
 CardioShield is a secure, AI-powered system for predicting heart disease risk while guaranteeing complete patient data privacy. It combines machine learning with homomorphic encryption, allowing predictions to be made directly on encrypted data — without ever exposing sensitive medical information.
 
----
-
-## Privacy-Preserving Heart Disease Prediction using Homomorphic Encryption
-
-CardioShield is an AI-powered healthcare application designed to predict heart disease risk while ensuring complete data privacy. The system leverages homomorphic encryption to perform machine learning inference directly on encrypted patient data, ensuring that sensitive medical information is never exposed during computation.
+Deployed and live at : https://cardioshield.streamlit.app/
 
 ---
 
-## Features
+## Overview
 
-- End-to-end encryption using CKKS (TenSEAL), ensuring patient data remains encrypted throughout the pipeline  
-- Logistic Regression model trained on the UCI Heart Disease dataset with approximately 87–90% accuracy  
-- Explainable AI using SHAP to provide transparency into feature contributions  
-- Real-time inference with secure predictions delivered within a few seconds  
-- Downloadable PDF report containing structured prediction results  
+CardioShield is a clinical decision support system designed to estimate cardiovascular risk using machine learning on structured patient data.
 
----
+The system enables real-time risk prediction, provides explainable outputs, and presents results through a simple web interface. It is built as a foundation for privacy-preserving, interpretable AI systems in healthcare.
 
-## System Workflow
-
-1. The user inputs 13 clinical features such as age, cholesterol, and ECG results  
-2. The data is encrypted locally using the CKKS homomorphic encryption scheme  
-3. Encrypted data is transmitted to the server  
-4. The machine learning model performs inference directly on encrypted data  
-5. The encrypted prediction result is returned to the client  
-6. The client decrypts the result and displays the prediction  
-7. SHAP is used to explain the contribution of each feature  
-
-At no stage is the patient’s raw data exposed to the server.
+Cardiovascular diseases are among the leading causes of mortality globally, and early risk assessment is critical for prevention and intervention.
 
 ---
 
-## Model Details
+## Key Features
 
-- **Algorithm:** Logistic Regression  
-- **Dataset:** UCI Heart Disease (Cleveland dataset)  
-- **Number of features:** 13 clinical attributes  
-- **Accuracy:** Approximately 87–90% using 5-fold cross-validation  
-
-### Preprocessing
-
-- StandardScaler normalization  
-- Median imputation for missing values (ca, thal)  
+- AI-based cardiovascular risk prediction using clinical parameters
+- Explainable AI using SHAP for feature-level interpretability
+- Structured clinical input interface
+- Real-time inference and probability scoring
+- Web-based deployment using Streamlit
 
 ---
 
-## Privacy Guarantee
+## System Architecture
 
-CardioShield ensures strong privacy guarantees through homomorphic encryption:
+```
+User Input (Clinical Data)
+        ↓
+Data Preprocessing
+        ↓
+Machine Learning Model
+        ↓
+Prediction Output (Risk Score)
+        ↓
+Explainability Layer (SHAP)
+        ↓
+Visualization Interface (Streamlit)
+```
 
-- No plaintext data leaves the client device  
-- The server processes only encrypted data  
-- Computation is performed without decryption  
-- Only the client can decrypt the final prediction  
+---
 
-This approach provides mathematical privacy guarantees rather than relying on policy-based protection.
+## Machine Learning Pipeline
+
+### Data Processing
+- Feature scaling and normalization
+- Handling missing values
+- Structured tabular data preparation
+
+### Model
+- Logistic Regression (baseline model)
+- Extendable to ensemble models
+
+### Evaluation Metrics
+- Accuracy
+- ROC-AUC
+- Precision and Recall
 
 ---
 
-## Technology Stack
+## Explainability
 
-- **Frontend:** Streamlit  
-- **Machine Learning:** Scikit-learn  
-- **Encryption:** TenSEAL (CKKS scheme)  
-- **Explainability:** SHAP  
-- **Backend:** Python  
+The system uses SHAP (SHapley Additive exPlanations) to:
+
+- Identify feature contributions to predictions
+- Provide transparency for decision-making
+- Improve interpretability of model outputs
 
 ---
-## Example Usage
 
-- Input patient clinical data through the interface  
-- Execute encrypted prediction  
-- View risk score and explanation  
-- Download a structured report  
+## Tech Stack
+
+### Languages and Libraries
+- Python
+- NumPy
+- Pandas
+- Scikit-learn
+- SHAP
+
+### Visualization
+- Matplotlib
+- Seaborn
+- Plotly (optional)
+
+### Deployment
+- Streamlit
+
+---
+
+## Installation and Setup
+
+### Clone the repository
+```bash
+git clone https://github.com/your-username/cardioshield.git
+cd cardioshield
+```
+
+### Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Run the application
+```bash
+streamlit run app.py
+```
+
+---
+
+## Example Input
+
+| Feature            | Example |
+|-------------------|--------|
+| Age               | 54     |
+| Cholesterol       | 240    |
+| Blood Pressure    | 140    |
+| Max Heart Rate    | 150    |
+
+---
+
+## Output
+
+- Risk probability (percentage)
+- Risk category (low, moderate, high)
+- Feature contribution analysis (SHAP)
 
 ---
 
 ## Use Cases
 
-- Privacy-preserving healthcare applications  
-- Secure medical diagnostics  
-- Research in encrypted machine learning  
-- Systems requiring strict data confidentiality  
-
----
-
-## Value Proposition
-
-Traditional healthcare AI systems require access to raw patient data, introducing privacy risks.  
-CardioShield eliminates this risk by enabling accurate and explainable predictions on encrypted data, ensuring that sensitive information is never exposed.
+- Preventive cardiology screening
+- Clinical decision support systems
+- Remote patient monitoring tools
+- Healthcare AI research and prototyping
 
 ---
 
 ## Disclaimer
 
-This project is intended for research and demonstration purposes only.  
-It should not be used as a substitute for professional medical diagnosis or treatment.
+This system is intended for educational and research purposes only. It is not a medical device and should not be used for clinical diagnosis or treatment decisions.
 
 ---
 
-## Team
+## Future Improvements
 
-Developed as part of the Alexa Developers SRM Hackathon.
+- Ensemble and advanced models (XGBoost, Random Forest)
+- Confidence intervals for predictions
+- Counterfactual explanations
+- Patient history tracking and longitudinal analysis
+- Backend API (FastAPI) with database integration
+- Authentication and access control
+- Homomorphic encryption for privacy-preserving inference
+
+---
+
+## Project Structure
+
+```
+cardioshield/
+│── app.py
+│── model/
+│── utils/
+│── data/
+│── requirements.txt
+│── README.md
+```
+
+---
+
+## Author
+
+Satvik Shashank Janga  
+Computer Science Engineering Student  
+Focus: AI, Machine Learning, and Systems
+
+---
+
+## License
+
+This project is open-source and available under the MIT License.
