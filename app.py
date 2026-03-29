@@ -27,7 +27,26 @@ st.set_page_config(
     layout                = "wide",
     initial_sidebar_state = "collapsed",
 )
-
+# ── HIDE STREAMLIT BRANDING & MANAGE APP ──────────────────────────────────────
+st.markdown(
+    """
+    <style>
+    /* Hide the Streamlit footer, "Manage app", and header menu */
+    footer {visibility: hidden;}
+    #MainMenu {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* Target the specific 'Manage app' button and bottom bar */
+    .stAppDeployButton {
+        display: none;
+    }
+    [data-testid="stStatusWidget"] {
+        visibility: hidden;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # ── SESSION STATE ─────────────────────────────────────────────────────────────
 for key, default in [
     ("prediction_data", None),
