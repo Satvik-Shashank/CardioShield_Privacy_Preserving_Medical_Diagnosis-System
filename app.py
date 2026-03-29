@@ -57,17 +57,17 @@ for key, default in [
 
 # ── THEME TOKENS (Dark Mode Only) ─────────────────────────────────────────────
 T = {
-    "bg_app":     "#0C111D",
-    "bg_card":    "#131C2E",
-    "bg_metric":  "#131C2E",
+    "bg_app":     "#0B1120",
+    "bg_card":    "rgba(255, 255, 255, 0.02)",
+    "bg_metric":  "rgba(255, 255, 255, 0.02)",
     "bg_alt":     "rgba(30,45,64,0.3)",
-    "text_main":  "#E2E8F0",
+    "text_main":  "#F8FAFC",
     "text_dim":   "#94A3B8",
     "text_brand": "#F1F5F9",
-    "border":     "#1E2D40",
+    "border":     "rgba(255, 255, 255, 0.08)",
     "primary":    "#3B82F6",
-    "accent":     "#60A5FA",
-    "shadow":     "rgba(0,0,0,0.4)",
+    "accent":     "#14B8A6",
+    "shadow":     "rgba(0,0,0,0.5)",
 }
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -251,40 +251,56 @@ details summary {{ color: {T['primary']} !important; font-weight: 600 !important
 .risk-banner-mod  {{ background: rgba(217,119,6,0.08); border: 1px solid rgba(217,119,6,0.35); }}
 .risk-banner-low  {{ background: rgba(5,150,105,0.08); border: 1px solid rgba(5,150,105,0.35); }}
 
-/* ── SHAP bullets ────────────────────────────────────────────────────────────── */
-.shap-up {{
-    background: rgba(220,38,38,0.06); border: 1px solid rgba(220,38,38,0.2);
-    border-left: 3px solid #DC2626; border-radius: 0 8px 8px 0;
-    padding: 14px 18px; margin-bottom: 10px;
+/* ── Biomarker Panel (SHAP) ──────────────────────────────────────────────────── */
+.biomarker-row {{
+    display: flex; align-items: stretch; background: {T['bg_card']};
+    border: 1px solid {T['border']}; border-radius: 8px; margin-bottom: 8px;
+    padding: 12px 16px; transition: all 0.2s;
 }}
-.shap-down {{
-    background: rgba(5,150,105,0.06); border: 1px solid rgba(5,150,105,0.2);
-    border-left: 3px solid #059669; border-radius: 0 8px 8px 0;
-    padding: 14px 18px; margin-bottom: 10px;
-}}
-.shap-feat-name  {{ font-weight: 700; color: {T['text_main']}; font-size: 0.93rem; }}
-.shap-feat-meta  {{ color: {T['text_dim']}; font-size: 0.8rem; margin-top: 2px; }}
-.shap-feat-adv   {{ color: {T['text_main']}; font-size: 0.87rem; margin-top: 9px; line-height: 1.55; opacity: 0.9; }}
+.biomarker-row:hover {{ border-color: rgba(20,184,166,0.3); background: rgba(255,255,255,0.05); }}
+.bm-info {{ flex: 0 0 35%; padding-right: 15px; border-right: 1px solid {T['border']}; }}
+.bm-name {{ font-weight: 700; color: {T['text_main']}; font-size: 0.9rem; }}
+.bm-val  {{ color: {T['text_dim']}; font-size: 0.8rem; margin-top: 4px; font-family: monospace; }}
+.bm-viz  {{ flex: 1; padding-left: 20px; display: flex; flex-direction: column; justify-content: center; position: relative; }}
+.bm-axis {{ position: absolute; left: 50%; top: 15px; bottom: 15px; width: 1px; background: rgba(255,255,255,0.1); border-left: 1px dashed rgba(255,255,255,0.2); }}
+.bm-bar-container {{ width: 100%; display: flex; align-items: center; position: relative; z-index: 2; margin-top: 6px; }}
+.bm-bar-left, .bm-bar-right {{ flex: 1; height: 12px; display: flex; align-items: center; }}
+.bm-bar-left {{ justify-content: flex-end; padding-right: 2px; }}
+.bm-bar-right {{ justify-content: flex-start; padding-left: 2px; }}
+.bm-fill-up {{ height: 100%; background: linear-gradient(90deg, transparent, #EF4444); border-radius: 0 3px 3px 0; box-shadow: 2px 0 8px rgba(239, 68, 68, 0.4); }}
+.bm-fill-dn {{ height: 100%; background: linear-gradient(270deg, transparent, #10B981); border-radius: 3px 0 0 3px; box-shadow: -2px 0 8px rgba(16, 185, 129, 0.4); }}
+.bm-advice {{ margin-top: 10px; font-size: 0.8rem; color: {T['text_dim']}; line-height: 1.4; border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 8px; }}
 
 /* ── Hex box ─────────────────────────────────────────────────────────────────── */
 .hex-box {{
     font-family: 'Courier New', monospace; font-size: 10px;
     background: rgba(0,0,0,0.1); border: 1px solid {T['border']}; border-radius: 8px;
-    padding: 14px; color: {T['primary']}; word-break: break-all;
+    padding: 14px; color: {T['accent']}; word-break: break-all;
     line-height: 1.8; max-height: 120px; overflow-y: auto;
 }}
 
-/* ── Step cards ──────────────────────────────────────────────────────────────── */
+/* ── Step cards (Glassmorphic) ───────────────────────────────────────────────── */
 .step-card {{
-    background: {T['bg_card']}; border: 1px solid {T['border']};
-    border-left: 3px solid {T['primary']}; border-radius: 0 10px 10px 0;
-    padding: 20px 22px; margin-bottom: 4px;
-    min-height: 160px;
-    box-shadow: 0 2px 10px {T['shadow']};
+    background: rgba(255,255,255,0.02); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 22px; margin-bottom: 12px; min-height: 170px; position: relative; transition: all 0.3s ease; overflow: hidden;
 }}
-.step-num   {{ font-size: 1.5rem; font-weight: 800; color: {T['primary']}; margin-bottom: 5px; }}
-.step-title {{ font-size: 0.93rem; font-weight: 700; color: {T['text_main']}; margin-bottom: 6px; }}
-.step-desc  {{ font-size: 0.82rem; color: {T['text_dim']}; line-height: 1.55; }}
+.step-card:hover {{ transform: translateY(-3px); border-color: rgba(20, 184, 166, 0.4); box-shadow: 0 10px 25px rgba(20, 184, 166, 0.15); }}
+.step-card::after {{ content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, {T['primary']} 0%, {T['accent']} 100%); opacity: 0; transition: opacity 0.3s; }}
+.step-card:hover::after {{ opacity: 1; }}
+.step-num   {{ font-size: 1.8rem; font-weight: 800; color: #F8FAFC; margin-bottom: 8px; opacity: 0.9; }}
+.step-title {{ font-size: 1rem; font-weight: 700; color: {T['accent']}; margin-bottom: 8px; }}
+.step-desc  {{ font-size: 0.82rem; color: {T['text_dim']}; line-height: 1.6; }}
+
+/* ── Hero Element ─────────────────────────────────────────────────────────────── */
+.cs-hero {{
+    position: relative; overflow: hidden; padding: 45px 40px; margin: 10px 0 40px;
+    border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); background-color: #0B1120;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}}
+.cs-hero::before {{
+    content: ''; position: absolute; top: -150px; right: -50px; width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 60%); pointer-events: none;
+}}
 
 /* ── Stat box ────────────────────────────────────────────────────────────────── */
 .stat-box {{
@@ -430,22 +446,19 @@ def get_he_context():
 # ═══════════════════════════════════════════════════════════════════════════════
 with tab_home:
 
-    c1, c2 = st.columns(2)
-    with c1:
-        st.markdown(f"""<div class='cs-card' style='border-left:3px solid #DC2626;'>
-        <h3>The Privacy Problem</h3>
-        <p>Traditional AI diagnostics force clinicians to upload raw patient records —
-        cholesterol, ECG results, blood pressure — to external cloud servers, creating
-        serious HIPAA exposure and data breach risk with every request.</p>
-        </div>""", unsafe_allow_html=True)
-    with c2:
-        st.markdown(f"""<div class='cs-card' style='border-left:3px solid #059669;'>
-        <h3>Our Secure Solution</h3>
-        <p>CardioShield encrypts all patient features <strong style='color:{T['primary']};'>on the client</strong>
-        before they leave the device. The inference engine computes predictions entirely
-        on ciphertexts — it never sees a single raw clinical value.
-        Zero patient data is ever exposed to the server in plaintext form.</p>
-        </div>""", unsafe_allow_html=True)
+    st.markdown(f"""
+    <div class='cs-hero'>
+        <div style='font-size:0.75rem; font-weight:700; color:{T['accent']}; letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;'>SECURE HOMOMORPHIC INFERENCE</div>
+        <div style='font-size:3rem; font-family:"Plus Jakarta Sans", sans-serif; font-weight:800; color:{T['text_main']}; letter-spacing:-1px; margin-bottom:18px; line-height:1.15;'>
+            CardioShield Framework.
+        </div>
+        <div style='font-size:1.05rem; color:{T['text_dim']}; font-weight:400; max-width:800px; line-height:1.6;'>
+            Clinical-grade heart disease risk assessment powered by <strong style='color:{T['text_main']};'>TenSEAL CKKS</strong> encryption. 
+            All patient data is encrypted directly on your device. The inference engine computes 
+            probabilistic scoring entirely on ciphertexts, meaning <strong style='color:{T['primary']};'>zero clinical values are ever exposed</strong> in plaintext to the server.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("<hr class='cs-divider'>", unsafe_allow_html=True)
     st.markdown("### Architecture and Workflow")
@@ -735,32 +748,44 @@ with tab_analysis:
         key=lambda x: abs(x[1]), reverse=True
     )
 
+    # Find max absolute SHAP value to scale bars properly
+    max_sv = max(abs(sv) for f, sv in sorted_feats if f != "sex") if sorted_feats else 0.1
+
     for feat, sv in sorted_feats:
         if abs(sv) < 0.001 or feat == "sex":
             continue
-        css_cls   = "shap-up" if sv > 0 else "shap-down"
-        arrow     = "▲  Increases risk" if sv > 0 else "▼  Decreases risk"
-        arr_col   = "#F87171" if sv > 0 else "#34D399"
+            
         feat_val  = raw.get(feat, 0.0)
         label     = FEAT_LABEL.get(feat, feat)
         context, advice = SHAP_ADVICE.get(feat, ("", "Discuss with your physician."))
+        
+        # Calculate bar width percentage (0 to 100)
+        width_pct = min(100, (abs(sv) / max_sv) * 100)
+        
+        if sv > 0:
+            bar_left = ""
+            bar_right = f"<div class='bm-fill-up' style='width:{width_pct}%'></div>"
+            val_col = "#F87171"
+        else:
+            bar_left = f"<div class='bm-fill-dn' style='width:{width_pct}%'></div>"
+            bar_right = ""
+            val_col = "#10B981"
 
         st.markdown(f"""
-        <div class='{css_cls}'>
-            <div style='display:flex; justify-content:space-between; align-items:flex-start; gap:12px;'>
-                <div>
-                    <span class='shap-feat-name'>{label}</span>
-                    <div class='shap-feat-meta'>
-                        Recorded value: <strong style='color:{T['text_main']};'>{feat_val:.2f}</strong>
-                        &nbsp;·&nbsp; SHAP contribution: <strong style='color:{arr_col};'>{sv:+.4f}</strong>
-                    </div>
-                </div>
-                <span style='font-size:0.75rem; font-weight:700; color:{arr_col};
-                white-space:nowrap; margin-top:2px;'>{arrow}</span>
+        <div class='biomarker-row'>
+            <div class='bm-info'>
+                <div class='bm-name'>{label}</div>
+                <div class='bm-val'>Value: <span style='color:{T['text_main']};'>{feat_val:.2f}</span></div>
             </div>
-            <div class='shap-feat-adv'>
-                <strong style='color:{T['primary']};'>Clinical note:</strong> {context}<br>
-                <strong style='color:#059669;'>Recommendation:</strong> {advice}
+            <div class='bm-viz'>
+                <div class='bm-axis'></div>
+                <div class='bm-bar-container'>
+                    <div class='bm-bar-left'>{bar_left}</div>
+                    <div class='bm-bar-right'>{bar_right}</div>
+                </div>
+                <div class='bm-advice'>
+                    <span style='color:{val_col}; font-weight:600;'>{sv:+.3f} Impact:</span> {context} {advice}
+                </div>
             </div>
         </div>
         """, unsafe_allow_html=True)
