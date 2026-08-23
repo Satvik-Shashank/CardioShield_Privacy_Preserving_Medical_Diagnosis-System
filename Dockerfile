@@ -1,44 +1,56 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# CardioShield – Dockerfile
-# ─────────────────────────────────────────────────────────────────────────────
-# Builds BOTH the Flask backend and Streamlit frontend in one image.
-# Use docker-compose.yml to run them as separate services.
-#
-# Build:   docker build -t cardioshield .
-# Run:     docker-compose up
+# CardioShield – Multi-Stage Production Dockerfile
 # ─────────────────────────────────────────────────────────────────────────────
 
-FROM python:3.11-slim
+# Stage 1: Build React Frontend SPA
+FROM node:20-alpine AS frontend-builder
+WORKDIR /app/frontend
 
-# System deps for building tenseal and other C extensions
+COPY frontend/package*.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: Python Backend with Verified TenSEAL CKKS
+FROM python:3.11-slim AS backend
+
+# Install system compilation dependencies required for TenSEAL (C++ SEAL library)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential cmake protobuf-compiler libprotobuf-dev \
+    build-essential \
+    cmake \
+    protobuf-compiler \
+    libprotobuf-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Install Python dependencies first (cache-friendly layer)
+# Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt gunicorn
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY . .
+# Copy backend source code & HE engine
+COPY backend/ ./backend/
+COPY he_engine.py model_trainer.py test_pipeline.py conftest.py ./
+COPY tests/ ./tests/
 
-# Train model artefacts if they don't exist
-RUN python -c "\
-import os;\
-if not os.path.exists('artefacts/model.pkl'):\
-    print('Training model artefacts...');\
-    exec(open('model_trainer.py').read())\
-else:\
-    print('Artefacts already exist')\
-" || true
+# Copy built frontend SPA from Stage 1
+COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 
-# Create data directory for backend database
-RUN mkdir -p /app/backend/data
+# Train and generate model artifacts if not present
+RUN python model_trainer.py
 
-# Expose ports: 5000 (backend), 8501 (frontend)
-EXPOSE 5000 8501
+# Verify HE engine during container build
+RUN python he_engine.py
 
-# Default command — overridden by docker-compose per service
-CMD ["python", "-m", "backend.app"]
+# Run full pipeline verification test
+RUN python test_pipeline.py
+
+EXPOSE 8000
+
+ENV PYTHONUNBUFFERED=1
+ENV HOST=0.0.0.0
+ENV PORT=8000
+
+CMD ["uvicorn", "backend.app:app", "--host", "0.0.0.0", "--port", "8000"]

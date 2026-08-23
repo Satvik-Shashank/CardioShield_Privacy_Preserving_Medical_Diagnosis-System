@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-08-23 05:38:25 UTC",
+  "model_type": "Logistic Regression (L-BFGS, Balanced)",
+  "sample_count": 303,
+  "test_sample_count": 61,
+  "accuracy": 86.89,
+  "cv_accuracy_mean": 81.39,
+  "cv_accuracy_std": 2.35,
+  "precision": 81.25,
+  "recall": 92.86,
+  "f1_score": 86.67,
+  "roc_auc": 95.02,
+  "confusion_matrix": [
+    [
+      27,
+      6
+    ],
+    [
+      2,
+      26
+    ]
+  ],
+  "poly_sigmoid_max_error": 0.21361,
+  "he_match_rate": 88.52,
+  "avg_he_latency_ms": 197.83,
+  "avg_he_prob_delta": 0.17257,
+  "ckks_parameters": {
+    "poly_modulus_degree": 8192,
+    "security_level": "128-bit RLWE",
+    "scale": "2^20",
+    "sigmoid_polynomial_degree": 3,
+    "multiplicative_depth": 2
+  },
+  "feature_importance": {
+    "age": -0.09418109044523405,
+    "sex": 0.6693739154549142,
+    "cp": 0.5343560123219251,
+    "trestbps": 0.31314963248368965,
+    "chol": 0.22630491272846245,
+    "fbs": -0.22543765409325636,
+    "restecg": 0.21362219293535228,
+    "thalach": -0.3592499396254228,
+    "exang": 0.3852566255107753,
+    "oldpeak": 0.13110010696870644,
+    "slope": 0.36198502750036654,
+    "ca": 1.1171163301768572,
+    "thal": 0.6728254941226328
+  }
+}

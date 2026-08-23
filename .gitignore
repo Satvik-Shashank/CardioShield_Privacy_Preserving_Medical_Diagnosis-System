@@ -1,14 +1,31 @@
+# Python
 .venv/
 __pycache__/
-.vscode/
-*.log
-app_log.txt
-app_old.py
-.DS_Store
 *.pyc
-.ipynb_checkpoints/
-.streamlit/
-# artefacts/
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
 .env
+
+# Backend runtime data
 backend/.salt
 backend/cardioshield.db
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Misc
+.ipynb_checkpoints/
