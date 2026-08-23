@@ -16,15 +16,20 @@ export default function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let intervalId;
     async function checkBackend() {
       try {
         const res = await getHealth();
         setHealthStatus(res);
       } catch (err) {
-        console.warn('Backend offline or health check failed:', err);
+        setHealthStatus({ status: 'CONNECTING' });
       }
     }
+
     checkBackend();
+    intervalId = setInterval(checkBackend, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleAssessmentSubmit = async (formData) => {
