@@ -13,7 +13,6 @@ The system enables real-time risk prediction, provides explainable outputs, and 
 
 Cardiovascular diseases are among the leading causes of mortality globally, and early risk assessment is critical for prevention and intervention.
 
----
 
 ## Key Features
 
@@ -23,7 +22,6 @@ Cardiovascular diseases are among the leading causes of mortality globally, and 
 - Real-time inference and probability scoring
 - Web-based deployment using Streamlit
 
----
 
 ## System Architecture
 
@@ -154,7 +152,6 @@ This system is intended for educational and research purposes only. It is not a 
 - Authentication and access control
 - Homomorphic encryption for privacy-preserving inference
 
----
 
 ## Project Structure
 
