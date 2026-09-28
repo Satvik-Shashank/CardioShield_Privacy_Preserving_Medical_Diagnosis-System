@@ -17,7 +17,6 @@ CardioShield is a cardiovascular risk assessment platform that performs machine 
 - [Model Performance](#model-performance)
 - [Deployment](#deployment)
 
----
 
 ## Problem Statement
 
@@ -25,7 +24,6 @@ Healthcare institutions face a fundamental tension between leveraging AI for cli
 
 CardioShield resolves this by applying Homomorphic Encryption (HE) to the inference pipeline. The AI model evaluates encrypted patient data and returns encrypted results. At no point does the server observe raw clinical values.
 
----
 
 ## How It Works
 
@@ -87,7 +85,6 @@ This polynomial approximation preserves classification accuracy while remaining 
 - Docker multi-stage build (Node.js frontend build + Python backend)
 - Docker Compose for single-command orchestration
 
----
 
 ## Project Structure
 
